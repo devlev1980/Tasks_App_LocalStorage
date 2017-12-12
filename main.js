@@ -60,39 +60,36 @@ function addTask(e) {
     e.preventDefault();
     if (taskInput.value === '') {
         alert('Add task')
+    } else {
+        //create li element
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+
+        //create text node and append to li
+        li.appendChild(document.createTextNode(taskInput.value));
+
+        // create delete link
+        const link = document.createElement('a');
+        link.className = 'delete-item secondary-content';
+
+        //add icon html
+        link.innerHTML = '<i class = "fa fa-remove"></i>';
+
+        //append link to li
+        li.appendChild(link);
+
+        //append li to ul
+        // console.log(li);
+        taskList.appendChild(li);
+
+        //store in Local Storage
+        storeTaskInLocalStorage(taskInput.value);
+
+        //clear input
+        taskInput.value = '';
     }
-
-    //create li element
-    const li = document.createElement('li');
-    li.className = 'collection-item';
-
-    //create text node and append to li
-    li.appendChild(document.createTextNode(taskInput.value));
-
-    // create delete link
-    const link = document.createElement('a');
-    link.className = 'delete-item secondary-content';
-
-    //add icon html
-    link.innerHTML = '<i class = "fa fa-remove"></i>';
-
-    //append link to li
-    li.appendChild(link);
-
-    //append li to ul
-    // console.log(li);
-    taskList.appendChild(li);
-
-    //store in Local Storage
-    storeTaskInLocalStorage(taskInput.value);
-
-    //clear input
-    taskInput.value = '';
-
-
-
 }
-
+//Set item in Local Storage
 function storeTaskInLocalStorage(task) {
     let tasks;
     if (localStorage.getItem('tasks') === null) {
